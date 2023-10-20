@@ -1,4 +1,4 @@
-body {
-    background-color: burlywood;
-    color: rgb(112, 150, 216)
+* {
+    margin: 0;
+    padding: 0
 }
