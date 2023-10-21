@@ -62,6 +62,7 @@ efecto de movimiento del personaje
 menú de pausa
 sombra
 obstaculos
+arreglar el tembleque bailón del enemigo
 
 
 
