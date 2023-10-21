@@ -1,12 +1,6 @@
 ---------Prioritario------------------------
-
-
 control de tiempo
-controles
-    - cruz
-personaje
-    - crear caja
-    - movimiento
+personaje  
     - estadisticas
         - vida
              -barra de vida
@@ -15,12 +9,7 @@ personaje
     - niveles
     - exp
 background
-corazon loop
-creador de elementos
 enemigos
-    - crear caja
-    - movimiento
-
     - vida
     - soltar 
         -exp
@@ -29,12 +18,9 @@ enemigos
         -daño
 
 
-totaldaño =  daño personaje 
-
-
-
 ----------secundario-------------------------
-
+ - optimizar movimiento personaje 
+ optimizar movimiento enemigos 
 enemigos
     -dinero?
     - tipos
@@ -70,3 +56,9 @@ arreglar el tembleque bailón del enemigo
 
 --------done---------------------
 *establecer patalla de juego*
+*controles*
+    *- cruz*
+- *crear caja del personaje*
+*corazon loop*
+*creador de elementos*
+- *crear caja enemigos*

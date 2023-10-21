@@ -1,5 +1,5 @@
 class Enemy {
-    constructor(gameScreen, gameSize, playerPos) {
+    constructor(gameScreen, gameSize, playerPos, initialPos) {
         this.gameScreen = gameScreen
         this.gamesize = {
             w: gameSize.w,
@@ -7,18 +7,13 @@ class Enemy {
         }
 
         this.enemySize = {
-            w: 20,
-            h: 20
+            w: 25,
+            h: 25
         }
 
-        // this.enemyPos = {
-        //     top: (gameSize.h / 2),
-        //     left: (gameSize.w / 2)
-        // }
-
         this.enemyPos = {
-            top: this.gamesize.h - this.enemySize.w,
-            left: 0 - this.enemySize.h
+            top: initialPos.top,
+            left: initialPos.left
         }
 
         this.playerPos = {
@@ -27,8 +22,8 @@ class Enemy {
         }
 
         this.enemyVel = {
-            top: 4,
-            left: 4
+            top: 3,
+            left: 3
         }
 
 
@@ -61,14 +56,14 @@ class Enemy {
     move() {
         this.getPlayerPos()
         if (this.enemyPos.top < this.playerPos.top) {
-            this.enemyPos.top += this.enemyVel.top
+            this.enemyPos.top += this.enemyVel.top * .2
         } else {
-            this.enemyPos.top -= this.enemyVel.top
+            this.enemyPos.top -= this.enemyVel.top * .2
         }
         if (this.enemyPos.left < this.playerPos.left) {
-            this.enemyPos.left += this.enemyVel.left
+            this.enemyPos.left += this.enemyVel.left * .2
         } else {
-            this.enemyPos.left -= this.enemyVel.left
+            this.enemyPos.left -= this.enemyVel.left * .2
         }
         this.updatePosition()
     }
@@ -77,6 +72,22 @@ class Enemy {
         this.enemy.style.top = `${this.enemyPos.top}px`
         this.enemy.style.left = `${this.enemyPos.left}px`
     }
+
+    moveUP() {
+        this.enemyPos.top += this.enemyVel.top
+        this.updatePosition()
+    }
+    moveDOWN() {
+        this.enemyPos.top -= this.enemyVel.top
+        this.updatePosition()
+    }
+    moveLEFT() {
+        this.enemyPos.left += this.enemyVel.left
+        this.updatePosition()
+    }
+    moveRIGHT() {
+        this.enemyPos.left -= this.enemyVel.left
+        this.updatePosition()
+    }
+
 }
-
-

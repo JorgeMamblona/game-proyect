@@ -14,11 +14,6 @@ class Player {
             left: (gameSize.w / 2) - (this.playerSize.h / 2)
         }
 
-        this.playerVel = {
-            top: 3,
-            left: 3
-        }
-
 
         this.init()
     }
@@ -35,19 +30,18 @@ class Player {
         this.player.style.top = `${this.playerPos.top}px`
         this.player.style.left = `${this.playerPos.left}px`
 
+        this.player.style.zIndex = '1'
         this.player.style.backgroundColor = 'DeepPink'
 
         this.gameScreen.appendChild(this.player)
     }
 
-    move() {
-        this.playerPos.top += this.playerVel.top
-        this.playerPos.left += this.playerVel.left
-        this.updatePosition()
-    }
+
 
     updatePosition() {
         this.player.style.top = `${this.playerPos.top}px`
         this.player.style.left = `${this.playerPos.left}px`
     }
+
+
 }
