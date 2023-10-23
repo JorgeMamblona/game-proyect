@@ -1,6 +1,6 @@
 class Background {
 
-    constructor(gameScreen, gameSize, enemyPos) {
+    constructor(gameScreen, gameSize) {
         this.gameScreen = gameScreen
 
         this.backgroundSize = {
@@ -28,7 +28,6 @@ class Background {
         this.background1.src = './img/background.jpg'
 
         this.background1.style.position = 'absolute'
-        //this.background1.style.backgroundSize = 'cover'
         this.background1.style.width = `${this.backgroundSize.w}px`
         this.background1.style.height = `${this.backgroundSize.h}px`
         this.background1.style.left = `${this.background1Pos.left}px`

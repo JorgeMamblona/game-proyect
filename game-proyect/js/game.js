@@ -12,6 +12,7 @@ const Game = {
     player: undefined,
     enemy: [],
     background: undefined,
+    frame: undefined,
 
     keys: {
         UP: 'KeyW',
@@ -33,7 +34,7 @@ const Game = {
     },
 
     gameLoop() {
-        console.log(this.frameCounter)
+        // console.log(this.frameCounter)
         this.frameCounter > 2000 ? this.frameCounter = 0 : this.frameCounter++
         if (this.frameCounter % 1 === 0) {
             if (this.enemy.length) {
@@ -47,7 +48,7 @@ const Game = {
 
 
         if (this.frameCounter % 100 === 0) {
-            // this.createEnemy()
+            //this.createEnemy()
         }
 
         window.requestAnimationFrame(() => this.gameLoop())
@@ -55,17 +56,21 @@ const Game = {
 
     createElem() {
         this.background = new Background(this.gameScreen, this.gameSize)
+        this.frame = new Frame(this.gameScreen, this.gameSize)
         this.player = new Player(this.gameScreen, this.gameSize)
+        //this.player = new PlayerShadow(this.gameScreen, this.gameSize)
+
         //this.enemy = []
 
     },
 
     createEnemy() {
-        const initialPos = {
-            top: Math.floor(Math.random() * this.gameSize.h),
-            left: Math.floor(Math.random() * this.gameSize.w)
-        }
-        this.enemy.push(new Enemy(this.gameScreen, this.gameSize, this.player.playerPos, initialPos))
+
+        this.enemy.push(new Enemy(this.gameScreen,
+            this.gameSize,
+            this.player,
+        ))
+
 
     },
 
@@ -75,27 +80,6 @@ const Game = {
         // this.gameScreen.style.backgroundColor = 'wheat' //placeholder
     },
 
-    // setEventListeners() {
-
-    //     document.addEventListener("keydown", e => {
-
-    //         if (e.code)
-    //             switch (e.code) {
-    //                 case this.keys.UP:
-    //                     this.player.moveUP()
-    //                     break
-    //                 case this.keys.DOWN:
-    //                     this.player.moveDOWN()
-    //                     break
-    //                 case this.keys.LEFT:
-    //                     this.player.moveLEFT()
-    //                     break
-    //                 case this.keys.RIGHT:
-    //                     this.player.moveRIGHT()
-    //                     break
-    //             }
-    //     })
-    // }
     setEventListeners() {
 
         document.addEventListener("keydown", e => {

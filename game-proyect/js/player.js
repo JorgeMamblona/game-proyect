@@ -14,6 +14,13 @@ class Player {
             left: (gameSize.w / 2) - (this.playerSize.h / 2)
         }
 
+        this.playerStatistics = {
+            playerVel: {
+                top: 10,
+                left: 10
+            }
+        }
+
 
         this.init()
     }

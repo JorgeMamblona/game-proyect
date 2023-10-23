@@ -40,7 +40,7 @@ controles
     - diagonal
     - fluidez
 
-tamaño pantalla de juego
+
 contador de tiempo
 
 ---------------backlog-------------------------
@@ -62,3 +62,5 @@ arreglar el tembleque bailón del enemigo
 *corazon loop*
 *creador de elementos*
 - *crear caja enemigos*
+
+*tamaño pantalla de juego*
