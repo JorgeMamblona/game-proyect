@@ -1,4 +1,5 @@
 ---------Prioritario------------------------
+COLISION
 control de tiempo
 personaje  
     - estadisticas
@@ -20,7 +21,7 @@ enemigos
 
 ----------secundario-------------------------
  - optimizar movimiento personaje 
- optimizar movimiento enemigos 
+
 enemigos
     -dinero?
     - tipos
@@ -64,3 +65,4 @@ arreglar el tembleque bailón del enemigo
 - *crear caja enemigos*
 
 *tamaño pantalla de juego*
+ *optimizar movimiento enemigos*

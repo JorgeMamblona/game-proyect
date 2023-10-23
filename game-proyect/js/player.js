@@ -5,8 +5,8 @@ class Player {
         this.gameSize = gameSize
 
         this.playerSize = {
-            w: 20,
-            h: 20
+            w: 25,
+            h: 25
         }
 
         this.playerPos = {
@@ -18,7 +18,8 @@ class Player {
             playerVel: {
                 top: 10,
                 left: 10
-            }
+            },
+            playerLife: 100
         }
 
 

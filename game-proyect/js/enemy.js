@@ -6,10 +6,7 @@ class Enemy {
             h: gameSize.h
         }
         this.player = player
-        this.enemySize = {
-            w: 25,
-            h: 25
-        }
+
 
         this.enemyPos = {
             top: 0,
@@ -21,16 +18,22 @@ class Enemy {
             left: player.playerPos.left
         }
 
-        this.enemyVel = {
-            top: 1,
-            left: 1
-        }
-
         this.playerVel = {
             top: this.player.playerStatistics.playerVel.top,
             left: this.player.playerStatistics.playerVel.left
         }
+        this.enemyStatistics = {
+            enemySize: {
+                w: 25,
+                h: 25
+            },
+            enemyVel: {
+                top: 1,
+                left: 1
+            },
+            enemyAtSp: 100
 
+        }
 
         this.init()
     }
@@ -40,8 +43,8 @@ class Enemy {
         this.enemy = document.createElement('div')
         this.enemy.style.position = 'absolute'
 
-        this.enemy.style.width = `${this.enemySize.w}px`
-        this.enemy.style.height = `${this.enemySize.h}px`
+        this.enemy.style.width = `${this.enemyStatistics.enemySize.w}px`
+        this.enemy.style.height = `${this.enemyStatistics.enemySize.h}px`
 
         this.enemy.style.top = `${this.enemyPos.top}px`
         this.enemy.style.left = `${this.enemyPos.left}px`
@@ -53,51 +56,35 @@ class Enemy {
     }
 
 
-    getPlayerPos() {
+    getPlayerPos() { //REVISAR 
         this.playerPos.top = Game.player.playerPos.top
         this.playerPos.left = Game.player.playerPos.left
     }
-
-    // move() {
-    //     this.getPlayerPos()
-    //     if (this.enemyPos.top < this.playerPos.top) {
-    //         this.enemyPos.top += this.enemyVel.top
-    //     } else {
-    //         this.enemyPos.top -= this.enemyVel.top
-    //     }
-    //     if (this.enemyPos.left < this.playerPos.left) {
-    //         this.enemyPos.left += this.enemyVel.left
-    //     } else {
-    //         this.enemyPos.left -= this.enemyVel.left
-    //     }
-    //     this.updatePosition()
-    // }
-
 
     move() {
         this.getPlayerPos()
         if (Math.abs(this.enemyPos.top - this.playerPos.top) >
             Math.abs(this.enemyPos.left - this.playerPos.left)) {
             if (this.enemyPos.top < this.playerPos.top) {
-                this.enemyPos.top += this.enemyVel.top
+                this.enemyPos.top += this.enemyStatistics.enemyVel.top
             } else {
-                this.enemyPos.top -= this.enemyVel.top
+                this.enemyPos.top -= this.enemyStatistics.enemyVel.top
             }
             if (this.enemyPos.left < this.playerPos.left) {
-                this.enemyPos.left += this.enemyVel.left * Math.random()
+                this.enemyPos.left += this.enemyStatistics.enemyVel.left * Math.random()
             } else {
-                this.enemyPos.left -= this.enemyVel.left * Math.random()
+                this.enemyPos.left -= this.enemyStatistics.enemyVel.left * Math.random()
             }
         } else {
             if (this.enemyPos.top < this.playerPos.top) {
-                this.enemyPos.top += this.enemyVel.top * Math.random()
+                this.enemyPos.top += this.enemyStatistics.enemyVel.top * Math.random()
             } else {
-                this.enemyPos.top -= this.enemyVel.top * Math.random()
+                this.enemyPos.top -= this.enemyStatistics.enemyVel.top * Math.random()
             }
             if (this.enemyPos.left < this.playerPos.left) {
-                this.enemyPos.left += this.enemyVel.left
+                this.enemyPos.left += this.enemyStatistics.enemyVel.left
             } else {
-                this.enemyPos.left -= this.enemyVel.left
+                this.enemyPos.left -= this.enemyStatistics.enemyVel.left
             }
         }
 
@@ -134,25 +121,25 @@ class Enemy {
 
         switch (random) {
             case 1:
-                this.enemyPos.top = Math.floor(Math.random() - this.enemySize.w)
-                this.enemyPos.left = Math.floor(Math.random() * this.gameSize.w - this.enemySize.w)
+                this.enemyPos.top = Math.floor(Math.random() - this.enemyStatistics.enemySize.w)
+                this.enemyPos.left = Math.floor(Math.random() * this.gameSize.w - this.enemyStatistics.enemySize.w)
 
                 break
             case 2:
-                this.enemyPos.top = Math.floor(Math.random() * (this.gameSize.h) - this.enemySize.w)
-                this.enemyPos.left = Math.floor(Math.random() - this.enemySize.w)
+                this.enemyPos.top = Math.floor(Math.random() * (this.gameSize.h) - this.enemyStatistics.enemySize.w)
+                this.enemyPos.left = Math.floor(Math.random() - this.enemyStatistics.enemySize.w)
                 break
             case 3:
-                this.enemyPos.top = this.gameSize.h - this.enemySize.w
-                this.enemyPos.left = Math.floor(Math.random() * this.gameSize.w - this.enemySize.w)
+                this.enemyPos.top = this.gameSize.h - this.enemyStatistics.enemySize.w
+                this.enemyPos.left = Math.floor(Math.random() * this.gameSize.w - this.enemyStatistics.enemySize.w)
                 break
             case 4:
-                this.enemyPos.top = Math.floor(Math.random() * (this.gameSize.h) - this.enemySize.w)
-                this.enemyPos.left = this.gameSize.w - this.enemySize.w
+                this.enemyPos.top = Math.floor(Math.random() * (this.gameSize.h) - this.enemyStatistics.enemySize.w)
+                this.enemyPos.left = this.gameSize.w - this.enemyStatistics.enemySize.w
                 break
             default:
-                this.enemyPos.top = this.gameSize.h - this.enemySize.w
-                this.enemyPos.left = this.gameSize.w - this.enemySize.w
+                this.enemyPos.top = this.gameSize.h - this.enemyStatistics.enemySize.w
+                this.enemyPos.left = this.gameSize.w - this.enemyStatistics.enemySize.w
 
         }
     }

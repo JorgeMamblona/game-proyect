@@ -10,7 +10,7 @@ const Game = {
     frameCounter: 0,
 
     player: undefined,
-    enemy: [],
+    enemys: [],
     background: undefined,
     frame: undefined,
 
@@ -35,23 +35,26 @@ const Game = {
 
     gameLoop() {
         // console.log(this.frameCounter)
+
         this.frameCounter > 2000 ? this.frameCounter = 0 : this.frameCounter++
+
+        // this.createEnemy()
+        this.moveAllEnemies()
+
+        this.isPlayerReached()
+        console.log(this.player.playerStatistics.playerLife)
+
+        window.requestAnimationFrame(() => this.gameLoop())
+    },
+
+    moveAllEnemies() {
         if (this.frameCounter % 1 === 0) {
-            if (this.enemy.length) {
-                this.enemy.forEach(elm => {
+            if (this.enemys.length) {
+                this.enemys.forEach(elm => {
                     elm.move()
                 });
             }
-
-
         }
-
-
-        if (this.frameCounter % 100 === 0) {
-            //this.createEnemy()
-        }
-
-        window.requestAnimationFrame(() => this.gameLoop())
     },
 
     createElem() {
@@ -60,16 +63,19 @@ const Game = {
         this.player = new Player(this.gameScreen, this.gameSize)
         //this.player = new PlayerShadow(this.gameScreen, this.gameSize)
 
-        //this.enemy = []
+        //this.enemys = []
 
     },
 
     createEnemy() {
 
-        this.enemy.push(new Enemy(this.gameScreen,
-            this.gameSize,
-            this.player,
-        ))
+        //automatica
+        // if (this.frameCounter % 100 === 0) {
+        //     this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player,))
+        // }
+
+        //manual
+        this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player,))
 
 
     },
@@ -86,19 +92,19 @@ const Game = {
             if (e.code)
                 switch (e.code) {
                     case this.keys.UP:
-                        this.enemy.forEach(elm => elm.moveUP())
+                        this.enemys.forEach(elm => elm.moveUP())
                         this.background.moveUP()
                         break
                     case this.keys.DOWN:
-                        this.enemy.forEach(elm => elm.moveDOWN())
+                        this.enemys.forEach(elm => elm.moveDOWN())
                         this.background.moveDOWN()
                         break
                     case this.keys.LEFT:
-                        this.enemy.forEach(elm => elm.moveLEFT())
+                        this.enemys.forEach(elm => elm.moveLEFT())
                         this.background.moveLEFT()
                         break
                     case this.keys.RIGHT:
-                        this.enemy.forEach(elm => elm.moveRIGHT())
+                        this.enemys.forEach(elm => elm.moveRIGHT())
                         this.background.moveRIGHT()
                         break
 
@@ -107,5 +113,37 @@ const Game = {
                         break
                 }
         })
+    },
+
+    isPlayerReached() {
+        this.enemys.forEach(enemy => {
+            if (
+                //colision vertical
+                enemy.enemyPos.top >= this.player.playerPos.top - this.player.playerSize.h
+                && enemy.enemyPos.top <= this.player.playerPos.top + this.player.playerSize.h
+                // colision horizontal
+                && enemy.enemyPos.left >= this.player.playerPos.left - this.player.playerSize.w
+                && enemy.enemyPos.left <= this.player.playerPos.left + this.player.playerSize.w
+            ) {
+                this.enemyAttack(enemy)
+            }
+
+            // console.log(Math.floor(enemy.enemyPos.left))
+            // if (
+            //     this.player.playerPos.left - this.player.playerSize.left >= enemy.enemyPos.left - enemy.enemySize.left
+            //     //  || this.player.playerPos.left + this.player.playerSize.left <= enemy.enemyPos.left
+
+
+            // ) {
+            //     console.log('colision')
+            // }
+        })
+
+    },
+    enemyAttack(attackingEnemy) {
+
+        if (this.frameCounter % attackingEnemy.enemyStatistics.enemyAtSp === 0) {
+            this.player.playerStatistics.playerLife--
+        }
     }
 }
