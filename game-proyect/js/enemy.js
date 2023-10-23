@@ -17,6 +17,7 @@ class Enemy {
             top: player.playerPos.top,
             left: player.playerPos.left
         }
+        this.lastDirection = ''
 
         this.playerVel = {
             top: this.player.playerStatistics.playerVel.top,
@@ -100,18 +101,26 @@ class Enemy {
 
     moveUP() {
         this.enemyPos.top += this.playerVel.top
+        this.lastDirection = 'up'
+
         this.updatePosition()
     }
     moveDOWN() {
         this.enemyPos.top -= this.playerVel.top
+        this.lastDirection = 'down'
+
         this.updatePosition()
     }
     moveLEFT() {
         this.enemyPos.left += this.playerVel.left
+        this.lastDirection = 'left'
+
         this.updatePosition()
     }
     moveRIGHT() {
         this.enemyPos.left -= this.playerVel.left
+        this.lastDirection = 'right'
+
         this.updatePosition()
     }
 
@@ -143,4 +152,5 @@ class Enemy {
 
         }
     }
+
 }

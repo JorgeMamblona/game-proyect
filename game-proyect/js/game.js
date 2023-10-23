@@ -13,6 +13,7 @@ const Game = {
     enemys: [],
     background: undefined,
     frame: undefined,
+    melee: undefined,
 
     keys: {
         UP: 'KeyW',
@@ -34,16 +35,14 @@ const Game = {
     },
 
     gameLoop() {
-        // console.log(this.frameCounter)
-
-        this.frameCounter > 2000 ? this.frameCounter = 0 : this.frameCounter++
+        //console.log(this.frameCounter)
+        // console.log(this.enemys)
+        this.frameCounter > 1000 ? this.frameCounter = 0 : this.frameCounter++
 
         // this.createEnemy()
         this.moveAllEnemies()
-
         this.isPlayerReached()
-        console.log(this.player.playerStatistics.playerLife)
-
+        this.isEnemyMeleeReached()
         window.requestAnimationFrame(() => this.gameLoop())
     },
 
@@ -61,6 +60,7 @@ const Game = {
         this.background = new Background(this.gameScreen, this.gameSize)
         this.frame = new Frame(this.gameScreen, this.gameSize)
         this.player = new Player(this.gameScreen, this.gameSize)
+        this.melee = new Melee(this.gameScreen, this.gameSize, this.frameCounter, this.player)
         //this.player = new PlayerShadow(this.gameScreen, this.gameSize)
 
         //this.enemys = []
@@ -93,18 +93,22 @@ const Game = {
                 switch (e.code) {
                     case this.keys.UP:
                         this.enemys.forEach(elm => elm.moveUP())
+                        this.melee.printWeapon('up')
                         this.background.moveUP()
                         break
                     case this.keys.DOWN:
                         this.enemys.forEach(elm => elm.moveDOWN())
+                        this.melee.printWeapon('down')
                         this.background.moveDOWN()
                         break
                     case this.keys.LEFT:
                         this.enemys.forEach(elm => elm.moveLEFT())
+                        this.melee.printWeapon('left')
                         this.background.moveLEFT()
                         break
                     case this.keys.RIGHT:
                         this.enemys.forEach(elm => elm.moveRIGHT())
+                        this.melee.printWeapon('right')
                         this.background.moveRIGHT()
                         break
 
@@ -127,23 +131,32 @@ const Game = {
             ) {
                 this.enemyAttack(enemy)
             }
-
-            // console.log(Math.floor(enemy.enemyPos.left))
-            // if (
-            //     this.player.playerPos.left - this.player.playerSize.left >= enemy.enemyPos.left - enemy.enemySize.left
-            //     //  || this.player.playerPos.left + this.player.playerSize.left <= enemy.enemyPos.left
-
-
-            // ) {
-            //     console.log('colision')
-            // }
         })
 
     },
     enemyAttack(attackingEnemy) {
 
         if (this.frameCounter % attackingEnemy.enemyStatistics.enemyAtSp === 0) {
+            //console.log(this.player.playerStatistics.playerLife)
             this.player.playerStatistics.playerLife--
         }
+    },
+
+    isEnemyMeleeReached() {
+        this.enemys.forEach((elm, idx) => {
+            if (
+                //colision vertical
+                elm.enemyPos.top >= this.melee.WpPos.top - elm.enemyStatistics.enemySize.h
+                && elm.enemyPos.top <= this.melee.WpPos.top + this.melee.WpSize.h
+                // colision horizontal
+                && elm.enemyPos.left >= this.melee.WpPos.left - elm.enemyStatistics.enemySize.w
+                && elm.enemyPos.left <= this.melee.WpPos.left + this.melee.WpSize.w
+            ) {
+                elm.enemy.remove()
+                this.enemys.splice(idx, 1)
+
+
+            }
+        })
     }
 }

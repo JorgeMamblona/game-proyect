@@ -1,12 +1,9 @@
 ---------Prioritario------------------------
-COLISION
+
 control de tiempo
 personaje  
     - estadisticas
-        - vida
              -barra de vida
-        - vel movimiento
-        -
     - niveles
     - exp
 background
@@ -18,7 +15,7 @@ enemigos
     armas
         -daño
 
-
+        
 ----------secundario-------------------------
  - optimizar movimiento personaje 
 
@@ -66,3 +63,8 @@ arreglar el tembleque bailón del enemigo
 
 *tamaño pantalla de juego*
  *optimizar movimiento enemigos*
+
+ *personaje - vel movimiento*
+ *COLISION*
+ *personaje vida*
+ *ataque arma*
