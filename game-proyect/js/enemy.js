@@ -32,7 +32,9 @@ class Enemy {
                 top: 1,
                 left: 1
             },
-            enemyAtSp: 100
+            enemyAtSp: 10,
+            enemyStr: 10,
+            enemyHealth: 100
 
         }
 
@@ -57,13 +59,10 @@ class Enemy {
     }
 
 
-    getPlayerPos() { //REVISAR 
-        this.playerPos.top = Game.player.playerPos.top
-        this.playerPos.left = Game.player.playerPos.left
-    }
+
 
     move() {
-        this.getPlayerPos()
+
         if (Math.abs(this.enemyPos.top - this.playerPos.top) >
             Math.abs(this.enemyPos.left - this.playerPos.left)) {
             if (this.enemyPos.top < this.playerPos.top) {

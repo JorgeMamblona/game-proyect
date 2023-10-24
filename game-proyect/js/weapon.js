@@ -12,7 +12,7 @@ class Weapon {
 
         this.WpDmg = 10
 
-        this.WpAtkSp = 0
+        this.WpAtkSp = 2
 
         this.WpPos = {
             top: this.gameSize.h / 2 - this.WpSize.h / 2,

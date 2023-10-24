@@ -14,6 +14,7 @@ const Game = {
     background: undefined,
     frame: undefined,
     melee: undefined,
+    gameOver: undefined,
 
     keys: {
         UP: 'KeyW',
@@ -38,11 +39,14 @@ const Game = {
         //console.log(this.frameCounter)
         // console.log(this.enemys)
         this.frameCounter > 1000 ? this.frameCounter = 0 : this.frameCounter++
-
         // this.createEnemy()
         this.moveAllEnemies()
         this.isPlayerReached()
         this.isEnemyMeleeReached()
+        this.frame.incrementSeconds()
+
+
+        this.isGameOver() && this.finishedGame()
         window.requestAnimationFrame(() => this.gameLoop())
     },
 
@@ -75,7 +79,7 @@ const Game = {
         // }
 
         //manual
-        this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player,))
+        this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player))
 
 
     },
@@ -135,15 +139,14 @@ const Game = {
 
     },
     enemyAttack(attackingEnemy) {
-
         if (this.frameCounter % attackingEnemy.enemyStatistics.enemyAtSp === 0) {
-            //console.log(this.player.playerStatistics.playerLife)
-            this.player.playerStatistics.playerLife--
+            this.player.playerStatistics.playerLife -= attackingEnemy.enemyStatistics.enemyStr
+            this.player.updateHealth()
         }
     },
 
     isEnemyMeleeReached() {
-        this.enemys.forEach((elm, idx) => {
+        this.enemys.forEach((elm) => {
             if (
                 //colision vertical
                 elm.enemyPos.top >= this.melee.WpPos.top - elm.enemyStatistics.enemySize.h
@@ -152,11 +155,74 @@ const Game = {
                 && elm.enemyPos.left >= this.melee.WpPos.left - elm.enemyStatistics.enemySize.w
                 && elm.enemyPos.left <= this.melee.WpPos.left + this.melee.WpSize.w
             ) {
-                elm.enemy.remove()
-                this.enemys.splice(idx, 1)
-
-
+                this.meleeAttack(elm)
             }
         })
+    },
+    meleeAttack(damagedEnemy) {
+        // if (this.frameCounter % this.melee.WpAtkSp === 0) {
+        damagedEnemy.enemyStatistics.enemyHealth -= this.melee.WpDmg
+        this.pushEnemy(damagedEnemy)
+        if (damagedEnemy.enemyStatistics.enemyHealth <= 0) {
+            this.killEnemy(damagedEnemy)
+        }
+        // }
+    },
+
+    killEnemy(deadEnemy) {
+        deadEnemy.enemy.remove()
+        this.enemys.splice(this.enemys.indexOf(deadEnemy), 1)
+    },
+
+    pushEnemy(pushedEnemy) {
+
+        if (
+            pushedEnemy.enemyPos.left >= this.melee.WpPos.left &&
+            pushedEnemy.enemyPos.top >= this.melee.WpPos.top &&
+            pushedEnemy.enemyPos.top <= this.melee.WpPos.top + this.melee.WpSize.h
+        ) {
+            //console.log('choque DER')
+            pushedEnemy.enemyPos.left += 75
+        }
+        if (
+            pushedEnemy.enemyPos.left <= this.melee.WpPos.left + this.melee.WpSize.w &&
+            pushedEnemy.enemyPos.top >= this.melee.WpPos.top &&
+            pushedEnemy.enemyPos.top <= this.melee.WpPos.top + this.melee.WpSize.h
+        ) {
+            // console.log('choque IZQ')
+            pushedEnemy.enemyPos.left -= 75
+        }
+        if (
+            pushedEnemy.enemyPos.top < this.melee.WpPos.top + this.melee.WpSize.h &&
+            pushedEnemy.enemyPos.left <= this.melee.WpPos.left + this.melee.WpSize.w &&
+            pushedEnemy.enemyPos.left >= this.melee.WpPos.left
+        ) {
+            // console.log('choque ARRIBA')
+            pushedEnemy.enemyPos.top -= 75
+        }
+
+        if (
+            pushedEnemy.enemyPos.top > this.melee.WpPos.top &&
+            pushedEnemy.enemyPos.left <= this.melee.WpPos.left + this.melee.WpSize.w &&
+            pushedEnemy.enemyPos.left >= this.melee.WpPos.left
+        ) {
+            //console.log('choque abajo')
+            pushedEnemy.enemyPos.top += pushedEnemy.enemyStatistics.enemySize.h + 76
+        }
+
+    },
+
+
+    isGameOver() {
+        if (this.player.playerStatistics.playerLife <= 0) {
+            return true
+        }
+        return false
+
+    },
+    finishedGame() {
+        this.gameOver = new GameOver(this.gameScreen, this.gameSize)
     }
+
+
 }

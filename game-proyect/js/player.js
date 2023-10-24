@@ -19,7 +19,25 @@ class Player {
                 top: 10,
                 left: 10
             },
-            playerLife: 100
+            playerLife: 500
+        }
+        this.playerBarBckSize = {
+            w: 500,
+            h: 25
+        }
+
+        this.playerBarBckPos = {
+            top: gameSize.h - 50,
+            left: gameSize.w / 2 - this.playerBarBckSize.w / 2
+        }
+
+        this.playerBarSize = {
+            w: this.playerStatistics.playerLife,
+            h: 25
+        }
+        this.playerBarPos = {
+            top: this.playerBarBckPos.top,
+            left: this.playerBarBckPos.left
         }
 
 
@@ -42,14 +60,46 @@ class Player {
         this.player.style.backgroundColor = 'DeepPink'
 
         this.gameScreen.appendChild(this.player)
+
+
+        this.playerBarBck = document.createElement('div')
+
+        this.playerBarBck.style.position = 'absolute'
+
+        this.playerBarBck.style.width = `${this.playerBarBckSize.w}px`
+        this.playerBarBck.style.height = `${this.playerBarBckSize.h}px`
+
+        this.playerBarBck.style.top = `${this.playerBarBckPos.top}px`
+        this.playerBarBck.style.left = `${this.playerBarBckPos.left}px`
+        this.playerBarBck.style.backgroundColor = 'black'
+
+        this.playerBarBck.style.zIndex = '3'
+        this.gameScreen.appendChild(this.playerBarBck)
+
+
+        this.playerBar = document.createElement('div')
+
+        this.playerBar.style.position = 'absolute'
+
+        this.playerBar.style.width = `${this.playerBarSize.w}px`
+        this.playerBar.style.height = `${this.playerBarSize.h}px`
+
+        this.playerBar.style.top = `${this.playerBarPos.top}px`
+        this.playerBar.style.left = `${this.playerBarPos.left}px`
+        this.playerBar.style.backgroundColor = 'DeepPink'
+
+        this.playerBar.style.zIndex = '4'
+        this.gameScreen.appendChild(this.playerBar)
+
+
     }
 
 
 
-    updatePosition() {
-        this.player.style.top = `${this.playerPos.top}px`
-        this.player.style.left = `${this.playerPos.left}px`
+    updateHealth() {
+        this.playerBar.style.width = `${this.playerStatistics.playerLife}px`
     }
+
 
 
 }

@@ -16,6 +16,21 @@ class Frame {
             top: .10,
             left: .10
         }
+
+
+        this.counterSize = {
+            h: 100,
+            w: 500
+        }
+
+        this.counterPos = {
+            top: gameSize.h * this.frameMargin.top - this.counterSize.h,
+            left: gameSize.w / 2 - this.counterSize.w / 2
+        }
+
+        this.sec = 0
+        this.min = 0
+
         this.frameZIndex = 2
         this.init()
     }
@@ -25,6 +40,7 @@ class Frame {
         this.createBottomFrame()
         this.createLeftFrame()
         this.createRightFrame()
+        this.createSecCounter()
     }
 
     createTopFrame() {
@@ -90,4 +106,44 @@ class Frame {
 
         this.gameScreen.appendChild(this.frameRight)
     }
+
+    createSecCounter() {
+        this.SecCounter = document.createElement('h2')
+
+        this.SecCounter.innerText = this.sec;
+        this.SecCounter.style.position = 'absolute'
+        this.SecCounter.style.width = `${this.counterSize.w}px`
+        this.SecCounter.style.height = `${this.counterSize.h}px`
+
+        this.SecCounter.style.left = `${this.counterPos.left}px`
+        this.SecCounter.style.top = `${this.counterPos.top}px`
+
+        this.SecCounter.style.zIndex = this.frameZIndex + 1
+        this.SecCounter.style.color = 'DeepPink'
+        this.SecCounter.style.textAlign = 'center'
+        this.SecCounter.style.fontSize = '5em'
+
+        this.gameScreen.appendChild(this.SecCounter)
+    }
+
+
+    incrementSeconds() {
+        if (Game.frameCounter % 57 === 0) {
+            this.sec++
+            if (this.sec === 60) {
+                this.min++
+                this.sec = 0
+            }
+            if (this.sec < 10) {
+                this.sec = '0' + this.sec.toString()
+            }
+
+            this.SecCounter.innerText = `${this.min}:${this.sec}`
+        }
+
+    }
+
 }
+
+
+
