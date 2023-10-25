@@ -25,7 +25,7 @@ class Background {
     init() {
         this.background1 = document.createElement('img')
 
-        this.background1.src = './img/background.jpg'
+        this.background1.src = './img/fondo.jpeg'
 
         this.background1.style.position = 'absolute'
         this.background1.style.width = `${this.backgroundSize.w}px`

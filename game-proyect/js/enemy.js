@@ -25,8 +25,8 @@ class Enemy {
         }
         this.enemyStatistics = {
             enemySize: {
-                w: 25,
-                h: 25
+                w: 60,
+                h: 60
             },
             enemyVel: {
                 top: 1,
@@ -37,6 +37,15 @@ class Enemy {
             enemyHealth: 100
 
         }
+        this.frameSpeed = 10,
+
+            this.enemySprite = {
+                backgroundPositionX: -80,
+                backgroundPositionY: -40,
+                totalFrames: 2,
+                currentFrame: 1,
+                frameSpeed: 10
+            }
 
         this.init()
     }
@@ -52,7 +61,14 @@ class Enemy {
         this.enemy.style.top = `${this.enemyPos.top}px`
         this.enemy.style.left = `${this.enemyPos.left}px`
 
-        this.enemy.style.backgroundColor = 'blue'
+        // this.enemy.style.backgroundColor = 'white'
+        this.enemy.style.zIndex = '1'
+        this.enemy.style.backgroundImage = `url(./img/FreeCowSprites.png)`
+        this.enemy.style.backgroundSize = '225px'
+        this.enemy.style.backgroundRepeat = 'no-repeat'
+        this.enemy.style.overflow = 'hidden'
+        this.enemy.style.backgroundPositionX = `${- this.enemySprite.backgroundPositionX}px`
+        this.enemy.style.backgroundPositionY = `${- this.enemySprite.backgroundPositionY}px`
 
         this.gameScreen.appendChild(this.enemy)
 
@@ -101,7 +117,6 @@ class Enemy {
     moveUP() {
         this.enemyPos.top += this.playerVel.top
         this.lastDirection = 'up'
-
         this.updatePosition()
     }
     moveDOWN() {
@@ -151,5 +166,32 @@ class Enemy {
 
         }
     }
+
+
+
+    animateSprite(frameCounter) {
+
+
+        if (frameCounter % this.frameSpeed === 0) {
+            this.enemySprite.currentFrame++
+
+        }
+        if (this.enemySprite.currentFrame >= this.enemySprite.totalFrames) {
+            this.enemySprite.currentFrame = 0
+
+        }
+        // console.log(this.enemySprite.currentFrame)
+        this.enemySprite.backgroundPositionX = -10 - 75 * this.enemySprite.currentFrame
+        this.enemySprite.backgroundPositionY = -90
+
+        this.updateSprite()
+    }
+
+
+    updateSprite() {
+        this.enemy.style.backgroundPositionX = `${this.enemySprite.backgroundPositionX}px`
+        this.enemy.style.backgroundPositionY = `${this.enemySprite.backgroundPositionY}px`
+    }
+
 
 }

@@ -44,8 +44,7 @@ const Game = {
         this.isPlayerReached()
         this.isEnemyMeleeReached()
         this.frame.incrementSeconds()
-
-
+        this.animateAll()
         this.isGameOver() && this.finishedGame()
         window.requestAnimationFrame(() => this.gameLoop())
     },
@@ -58,6 +57,13 @@ const Game = {
                 });
             }
         }
+    },
+
+    animateAll() {
+        this.player.animateSprite(Game.frameCounter)
+
+        this.enemys.forEach(elm => elm.animateSprite(Game.frameCounter))
+
     },
 
     createElem() {
@@ -98,21 +104,25 @@ const Game = {
                     case this.keys.UP:
                         this.enemys.forEach(elm => elm.moveUP())
                         this.melee.printWeapon('up')
+                        this.player.animateSprite(this.frameCounter, 4)
                         this.background.moveUP()
                         break
                     case this.keys.DOWN:
                         this.enemys.forEach(elm => elm.moveDOWN())
                         this.melee.printWeapon('down')
+                        this.player.animateSprite(this.frameCounter, 1)
                         this.background.moveDOWN()
                         break
                     case this.keys.LEFT:
                         this.enemys.forEach(elm => elm.moveLEFT())
                         this.melee.printWeapon('left')
+                        this.player.animateSprite(this.frameCounter, 7)
                         this.background.moveLEFT()
                         break
                     case this.keys.RIGHT:
                         this.enemys.forEach(elm => elm.moveRIGHT())
                         this.melee.printWeapon('right')
+                        this.player.animateSprite(this.frameCounter, 10)
                         this.background.moveRIGHT()
                         break
 
@@ -198,13 +208,16 @@ const Game = {
             pushedEnemy.enemyPos.left >= this.melee.WpPos.left
         ) {
             // console.log('choque ARRIBA')
+
             pushedEnemy.enemyPos.top -= 75
+
         }
 
         if (
-            pushedEnemy.enemyPos.top > this.melee.WpPos.top &&
+            pushedEnemy.enemyPos.top > this.melee.WpPos.top + this.melee.WpSize.h &&
             pushedEnemy.enemyPos.left <= this.melee.WpPos.left + this.melee.WpSize.w &&
             pushedEnemy.enemyPos.left >= this.melee.WpPos.left
+
         ) {
             //console.log('choque abajo')
             pushedEnemy.enemyPos.top += pushedEnemy.enemyStatistics.enemySize.h + 76

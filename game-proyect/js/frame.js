@@ -54,7 +54,7 @@ class Frame {
         this.frameTop.style.top = `${this.framePos.top}px`
 
         this.frameTop.style.zIndex = this.frameZIndex
-        this.frameTop.style.backgroundColor = 'Gray'
+        this.frameTop.style.backgroundColor = '#83CB64'
 
 
         this.gameScreen.appendChild(this.frameTop)
@@ -71,7 +71,7 @@ class Frame {
         this.frameBottom.style.top = `${this.frameSize.h - this.frameSize.h * this.frameMargin.top}px`
 
         this.frameBottom.style.zIndex = this.frameZIndex
-        this.frameBottom.style.backgroundColor = 'Gray'
+        this.frameBottom.style.backgroundColor = '#83CB64'
 
         this.gameScreen.appendChild(this.frameBottom)
     }
@@ -86,7 +86,7 @@ class Frame {
         this.frameLeft.style.top = `${this.framePos.top}px`
 
         this.frameLeft.style.zIndex = this.frameZIndex
-        this.frameLeft.style.backgroundColor = 'Gray'
+        this.frameLeft.style.backgroundColor = '#83CB64'
 
         this.gameScreen.appendChild(this.frameLeft)
     }
@@ -102,13 +102,14 @@ class Frame {
         this.frameRight.style.top = `${this.framePos.top}px`
 
         this.frameRight.style.zIndex = this.frameZIndex
-        this.frameRight.style.backgroundColor = 'Grey'
+        this.frameRight.style.backgroundColor = '#83CB64'
 
         this.gameScreen.appendChild(this.frameRight)
     }
 
     createSecCounter() {
         this.SecCounter = document.createElement('h2')
+        this.SecCounter.innerText = '00:00'
 
         this.SecCounter.innerText = this.sec;
         this.SecCounter.style.position = 'absolute'

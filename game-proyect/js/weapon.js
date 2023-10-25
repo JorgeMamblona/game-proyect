@@ -10,7 +10,7 @@ class Weapon {
             w: 55
         }
 
-        this.WpDmg = 10
+        this.WpDmg = 1
 
         this.WpAtkSp = 2
 
@@ -40,8 +40,14 @@ class Melee extends Weapon {
         this.melee.style.top = `${this.WpPos.top}px`
         this.melee.style.left = `${this.WpPos.left}px`
 
+
+        this.melee.style.backgroundImage = `url(./img/Milk.webp)`
+        this.melee.style.backgroundSize = '55px'
+        this.melee.style.backgroundRepeat = 'no-repeat'
+        this.melee.style.overflow = 'hidden'
+
         this.melee.style.zIndex = '0'
-        this.melee.style.backgroundColor = 'wheat'
+        // this.melee.style.backgroundColor = 'wheat'
 
         this.gameScreen.appendChild(this.melee)
     }

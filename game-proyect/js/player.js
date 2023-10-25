@@ -5,8 +5,8 @@ class Player {
         this.gameSize = gameSize
 
         this.playerSize = {
-            w: 25,
-            h: 25
+            w: 40,
+            h: 40
         }
 
         this.playerPos = {
@@ -40,7 +40,15 @@ class Player {
             left: this.playerBarBckPos.left
         }
 
+        this.playerSprite = {
+            backgroundPositionX: 40,
+            backgroundPositionY: 40,
+            totalFrames: 11,
+            currentFrame: 1,
+            frameSpeed: 10
+        }
 
+        this.playerDirection = 1
         this.init()
     }
 
@@ -57,7 +65,14 @@ class Player {
         this.player.style.left = `${this.playerPos.left}px`
 
         this.player.style.zIndex = '1'
-        this.player.style.backgroundColor = 'DeepPink'
+        this.player.style.backgroundImage = `url(./img/Charakter2.png)`
+        this.player.style.backgroundSize = '480px'
+        this.player.style.backgroundRepeat = 'no-repeat'
+        this.player.style.overflow = 'hidden'
+        this.player.style.backgroundPositionX = `${- this.playerSprite.backgroundPositionX}px`
+        this.player.style.backgroundPositionY = `${- this.playerSprite.backgroundPositionY}px`
+
+        //this.player.style.backgroundColor = 'white'
 
         this.gameScreen.appendChild(this.player)
 
@@ -100,6 +115,33 @@ class Player {
         this.playerBar.style.width = `${this.playerStatistics.playerLife}px`
     }
 
+    animateSprite(frameCounter, direction) {
+        this.player.playerDirection = direction
+
+
+        if (frameCounter % this.playerSprite.frameSpeed == 0) {
+
+            this.playerSprite.currentFrame += 3
+
+        }
+        if (this.playerSprite.currentFrame >= this.playerSprite.totalFrames) {
+            this.playerSprite.currentFrame = 1
+        }
+
+
+
+
+        this.playerSprite.backgroundPositionX = -this.playerSize.w * this.playerSprite.currentFrame
+        this.playerSprite.backgroundPositionY = -this.playerSize.h * this.player.playerDirection
+
+        this.updateSprite()
+    }
+
+
+    updateSprite() {
+        this.player.style.backgroundPositionX = `${this.playerSprite.backgroundPositionX}px`
+        this.player.style.backgroundPositionY = `${this.playerSprite.backgroundPositionY}px`
+    }
 
 
 }

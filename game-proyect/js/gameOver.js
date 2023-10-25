@@ -12,6 +12,11 @@ class GameOver {
             left: 0
         }
 
+        this.gameLetraPos = {
+            top: 300,
+            left: 600
+        }
+
 
 
         this.init()
@@ -27,13 +32,31 @@ class GameOver {
 
         this.gameOver.style.top = `${this.gameOverPos.top}px`
         this.gameOver.style.left = `${this.gameOverPos.left}px`
-
-        // this.gameOver.style.margin = 'auto'
-
-        this.gameOver.style.backgroundColor = 'green'
+        this.gameOver.style.backgroundColor = 'grey'
         this.gameOver.style.zIndex = '5'
 
         this.gameScreen.appendChild(this.gameOver)
+
+
+
+        this.gameLetra = document.createElement('div')
+
+        this.gameLetra.style.width = `${this.gameOverSize.w}px`
+        this.gameLetra.style.height = `${this.gameOverSize.h}px`
+
+        this.gameLetra.style.top = `${this.gameLetraPos.top}px`
+        this.gameLetra.style.left = `${this.gameLetraPos.left}px`
+
+
+        this.gameLetra.style.position = `absolute`
+
+        this.gameLetra.style.backgroundImage = `url(./img/gameOver.png)`
+        this.gameLetra.style.backgroundRepeat = `no-repeat`
+        this.gameOver.style.zIndex = '6'
+
+        this.gameOver.appendChild(this.gameLetra)
+
+
 
 
         this.gameOverText = document.createElement('h1')
