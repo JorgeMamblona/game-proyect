@@ -1,4 +1,10 @@
 ---------Prioritario------------------------
+enemigos aleatorios y cada vez mas
+contador de muertes
+colisiones
+game over con estadisticas
+
+
 
 control de tiempo
 personaje  
