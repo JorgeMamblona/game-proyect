@@ -29,8 +29,8 @@ class Enemy {
                 h: 60
             },
             enemyVel: {
-                top: 1,
-                left: 1
+                top: 100,
+                left: 100
             },
             enemyAtSp: 10,
             enemyStr: 10,

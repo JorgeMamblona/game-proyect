@@ -10,7 +10,7 @@ class Weapon {
             w: 55
         }
 
-        this.WpDmg = 1
+        this.WpDmg = 10
 
         this.WpAtkSp = 2
 

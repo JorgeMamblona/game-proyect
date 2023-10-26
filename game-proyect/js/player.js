@@ -16,10 +16,10 @@ class Player {
 
         this.playerStatistics = {
             playerVel: {
-                top: 10,
-                left: 10
+                top: 2,
+                left: 2
             },
-            playerLife: 500
+            playerLife: 1
         }
         this.playerBarBckSize = {
             w: 500,

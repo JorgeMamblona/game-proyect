@@ -9,8 +9,9 @@ const Game = {
 
     frameCounter: 0,
     isPaused: false,
+    deadEnemy: 0,
     count: 0,
-
+    spawn: 100,
 
     player: undefined,
     enemys: [],
@@ -93,14 +94,14 @@ const Game = {
 
     createEnemy() {
 
-        // if (this.frameCounter % 100 === 0) {
-        //     this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player,))
-        // }
+        if (this.frameCounter % this.spawn === 0) {
+            this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player,))
+        }
 
 
-        if (this.count < 2) this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player))
-        //manual
-        this.count++
+        // if (this.count < 2) this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player))
+        // //manual
+        // this.count++
 
 
     },
@@ -213,6 +214,7 @@ const Game = {
     killEnemy(deadEnemy) {
         deadEnemy.enemy.remove()
         this.enemys.splice(this.enemys.indexOf(deadEnemy), 1)
+        this.deadEnemy++
     },
 
     pushEnemy(pushedEnemy) {
