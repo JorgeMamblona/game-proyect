@@ -8,6 +8,9 @@ const Game = {
     },
 
     frameCounter: 0,
+    isPaused: false,
+    count: 0,
+
 
     player: undefined,
     enemys: [],
@@ -21,7 +24,7 @@ const Game = {
         DOWN: 'KeyS',
         LEFT: 'KeyA',
         RIGHT: 'KeyD',
-        ENEMY: 'KeyP'
+        PAUSE: 'KeyP'
     },
 
     init() {
@@ -36,17 +39,21 @@ const Game = {
     },
 
     gameLoop() {
-        //console.log(this.frameCounter)
-        // console.log(this.enemys)
-        this.frameCounter > 1000 ? this.frameCounter = 0 : this.frameCounter++
-        // this.createEnemy()
-        this.moveAllEnemies()
-        this.isPlayerReached()
-        this.isEnemyMeleeReached()
-        this.frame.incrementSeconds()
-        this.animateAll()
-        this.isGameOver() && this.finishedGame()
-        window.requestAnimationFrame(() => this.gameLoop())
+        if (!this.isPaused) {
+            //console.log(this.frameCounter)
+            // console.log(this.enemys)
+            this.frameCounter > 1000 ? this.frameCounter = 0 : this.frameCounter++
+            this.createEnemy()
+
+            this.checkCollisions()
+            this.moveAllEnemies()
+            this.animateAll()
+            this.frame.incrementSeconds()
+
+            this.isGameOver() && this.finishedGame()
+            window.requestAnimationFrame(() => this.gameLoop())
+        }
+
     },
 
     moveAllEnemies() {
@@ -58,6 +65,13 @@ const Game = {
             }
         }
     },
+
+    checkCollisions() {
+        this.isPlayerReached()
+        this.isEnemyMeleeReached()
+        this.isEnemyCollision()
+    },
+
 
     animateAll() {
         this.player.animateSprite(Game.frameCounter)
@@ -79,13 +93,14 @@ const Game = {
 
     createEnemy() {
 
-        //automatica
         // if (this.frameCounter % 100 === 0) {
         //     this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player,))
         // }
 
+
+        if (this.count < 2) this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player))
         //manual
-        this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player))
+        this.count++
 
 
     },
@@ -97,9 +112,19 @@ const Game = {
     },
 
     setEventListeners() {
-
         document.addEventListener("keydown", e => {
-            if (e.code)
+            if (e.code === this.keys.PAUSE) {
+                if (this.isPaused) {
+                    this.isPaused = false
+                    this.gameLoop()
+                    //console.log('despausa')
+                } else {
+                    this.isPaused = true
+                    //     console.log('pausa')
+                }
+            }
+
+            if (e.code && !this.isPaused) {
                 switch (e.code) {
                     case this.keys.UP:
                         this.enemys.forEach(elm => elm.moveUP())
@@ -126,11 +151,17 @@ const Game = {
                         this.background.moveRIGHT()
                         break
 
-                    case this.keys.ENEMY:
-                        this.createEnemy()
+                    case this.keys.PAUSE:
+
+
                         break
                 }
+            }
         })
+
+
+
+
     },
 
     isPlayerReached() {
@@ -226,6 +257,33 @@ const Game = {
     },
 
 
+    isEnemyCollision() {
+
+        // this.enemys.forEach(enemy2 => {
+        //     this.enemys.forEach((enemy1) => {
+        //         if (
+
+        //             enemy1.enemyPos.left + enemy1.enemyStatistics.enemySize.w >= enemy2.enemyPos.left &&
+        //             enemy1.enemyPos.top + enemy1.enemyStatistics.enemySize.h >= enemy2.enemyPos.top &&
+        //             enemy1.enemyPos.left <= enemy2.enemyPos.left + enemy2.enemyStatistics.enemySize.w
+
+        //         ) {
+        //             console.log('col')
+        //         }
+        //     })
+        // })
+    },
+
+
+    // isCollision() {
+    //     for (let i = 0; i < this.obstacles.length; i++) {
+    //         if (
+    //             this.player.playerPos.left + this.player.playerSize.w >= this.obstacles[i].obstaclePos.left &&
+    //             this.player.playerPos.top + this.player.playerSize.h >= this.obstacles[i].obstaclePos.top &&
+    //             this.player.playerPos.left <= this.obstacles[i].obstaclePos.left + this.obstacles[i].obstacleSize.w
+    //         ) {
+    //             return true
+
     isGameOver() {
         if (this.player.playerStatistics.playerLife <= 0) {
             return true
@@ -234,6 +292,7 @@ const Game = {
 
     },
     finishedGame() {
+        this.isPaused = true
         this.gameOver = new GameOver(this.gameScreen, this.gameSize)
     }
 
