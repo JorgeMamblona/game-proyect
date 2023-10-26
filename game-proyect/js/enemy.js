@@ -112,7 +112,11 @@ class Enemy {
     updatePosition() {
         this.enemy.style.top = `${this.enemyPos.top}px`
         this.enemy.style.left = `${this.enemyPos.left}px`
+         
+        
     }
+   
+
 
     moveUP() {
         this.enemyPos.top += this.playerVel.top
