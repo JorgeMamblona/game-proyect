@@ -29,8 +29,8 @@ class Enemy {
                 h: 60
             },
             enemyVel: {
-                top: 1,
-                left: 1
+                top: .5,
+                left: .5
             },
             enemyAtSp: 10,
             enemyStr: 10,
@@ -44,7 +44,7 @@ class Enemy {
                 backgroundPositionY: -40,
                 totalFrames: 2,
                 currentFrame: 1,
-                frameSpeed: 10
+                frameSpeed: 30
             }
 
         this.init()

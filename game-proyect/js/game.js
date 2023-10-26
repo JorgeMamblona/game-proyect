@@ -11,7 +11,7 @@ const Game = {
     isPaused: false,
     deads: 0,
     count: 0,
-    spawn: 100,
+    spawn: 300,
 
     player: undefined,
     enemys: [],
@@ -46,13 +46,14 @@ const Game = {
             this.frameCounter > 1000 ? this.frameCounter = 0 : this.frameCounter++
             this.setSpawn()
             this.createEnemy()
-
+            console.log(this.frameCounter)
             this.checkCollisions()
             this.moveAllEnemies()
             this.animateAll()
             this.frame.incrementSeconds()
 
             this.isGameOver() && this.finishedGame()
+
             window.requestAnimationFrame(() => this.gameLoop())
         }
 
@@ -105,14 +106,14 @@ const Game = {
         // this.count++
     },
     setSpawn() {
-        if (this.frameCounter % 700 === 0) {
-            console.log(this.spawn)
+        if (this.frameCounter % 800 === 0) {
+
             if (this.spawn > 1) {
                 this.spawn -= 5
 
                 this.enemys.forEach(elm => {
-                    elm.enemyStatistics.enemyVel.top += .2
-                    elm.enemyStatistics.enemyVel.left += .2
+                    // elm.enemyStatistics.enemyVel.top += .2
+                    // elm.enemyStatistics.enemyVel.left += .2
                 })
             } else {
                 this.spawn = 1

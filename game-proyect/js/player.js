@@ -16,8 +16,8 @@ class Player {
 
         this.playerStatistics = {
             playerVel: {
-                top: 2.5,
-                left: 2.5
+                top: 3,
+                left: 3
             },
             playerLife: 500
         }
@@ -45,7 +45,7 @@ class Player {
             backgroundPositionY: 40,
             totalFrames: 11,
             currentFrame: 1,
-            frameSpeed: 10
+            frameSpeed: 30
         }
 
         this.playerDirection = 1
