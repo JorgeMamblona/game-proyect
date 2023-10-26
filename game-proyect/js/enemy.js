@@ -29,8 +29,8 @@ class Enemy {
                 h: 60
             },
             enemyVel: {
-                top: 100,
-                left: 100
+                top: 1,
+                left: 1
             },
             enemyAtSp: 10,
             enemyStr: 10,
@@ -112,10 +112,10 @@ class Enemy {
     updatePosition() {
         this.enemy.style.top = `${this.enemyPos.top}px`
         this.enemy.style.left = `${this.enemyPos.left}px`
-         
-        
+
+
     }
-   
+
 
 
     moveUP() {

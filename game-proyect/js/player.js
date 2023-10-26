@@ -16,10 +16,10 @@ class Player {
 
         this.playerStatistics = {
             playerVel: {
-                top: 2,
-                left: 2
+                top: 2.5,
+                left: 2.5
             },
-            playerLife: 1
+            playerLife: 500
         }
         this.playerBarBckSize = {
             w: 500,
@@ -101,7 +101,7 @@ class Player {
 
         this.playerBar.style.top = `${this.playerBarPos.top}px`
         this.playerBar.style.left = `${this.playerBarPos.left}px`
-        this.playerBar.style.backgroundColor = 'DeepPink'
+        this.playerBar.style.backgroundColor = '#207641'
 
         this.playerBar.style.zIndex = '4'
         this.gameScreen.appendChild(this.playerBar)

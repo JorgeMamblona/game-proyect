@@ -120,7 +120,7 @@ class Frame {
         this.SecCounter.style.top = `${this.counterPos.top}px`
 
         this.SecCounter.style.zIndex = this.frameZIndex + 1
-        this.SecCounter.style.color = 'DeepPink'
+        this.SecCounter.style.color = '#207641'
         this.SecCounter.style.textAlign = 'center'
         this.SecCounter.style.fontSize = '5em'
 

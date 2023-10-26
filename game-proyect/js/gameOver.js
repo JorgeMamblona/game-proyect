@@ -102,7 +102,7 @@ class GameOver {
 
 
 
-        this.time.innerHTML = 'has durado vivo' + '<br> </br>' + `${Game.frame.min}:${Game.frame.sec}` + '<br> </br>' + 'otra coosa'
+        this.time.innerHTML = 'has durado vivo' + '<br> </br>' + `${Game.frame.min}:${Game.frame.sec}`
 
 
 
@@ -132,7 +132,7 @@ class GameOver {
 
 
 
-        this.enemyDead.innerHTML = 'vaquitas ordeñadas:' + '<br> </br>' + Game.deadEnemy
+        this.enemyDead.innerHTML = 'vaquitas ordeñadas:' + '<br> </br>' + Game.deads
 
 
 

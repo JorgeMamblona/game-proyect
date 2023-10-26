@@ -9,7 +9,7 @@ const Game = {
 
     frameCounter: 0,
     isPaused: false,
-    deadEnemy: 0,
+    deads: 0,
     count: 0,
     spawn: 100,
 
@@ -44,6 +44,7 @@ const Game = {
             //console.log(this.frameCounter)
             // console.log(this.enemys)
             this.frameCounter > 1000 ? this.frameCounter = 0 : this.frameCounter++
+            this.setSpawn()
             this.createEnemy()
 
             this.checkCollisions()
@@ -94,17 +95,31 @@ const Game = {
 
     createEnemy() {
 
-        // if (this.frameCounter % 100 === 0) {
-        //     this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player,))
-        // }
+        if (this.frameCounter % this.spawn === 0) {
+            this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player,))
+        }
 
 
         // if (this.count < 2) this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player))
         // //manual
         // this.count++
-
-
     },
+    setSpawn() {
+        if (this.frameCounter % 700 === 0) {
+            console.log(this.spawn)
+            if (this.spawn > 1) {
+                this.spawn -= 5
+
+                this.enemys.forEach(elm => {
+                    elm.enemyStatistics.enemyVel.top += .2
+                    elm.enemyStatistics.enemyVel.left += .2
+                })
+            } else {
+                this.spawn = 1
+            }
+        }
+    },
+
 
     setDimensions() {
         this.gameScreen.style.width = `${this.gameSize.w}px`
@@ -220,6 +235,8 @@ const Game = {
         this.pushEnemy(damagedEnemy)
         if (damagedEnemy.enemyStatistics.enemyHealth <= 0) {
             this.killEnemy(damagedEnemy)
+            let audio = document.getElementById('audio')
+            audio.play()
         }
         // }
     },
@@ -227,6 +244,7 @@ const Game = {
     killEnemy(deadEnemy) {
         deadEnemy.enemy.remove()
         this.enemys.splice(this.enemys.indexOf(deadEnemy), 1)
+        this.deads++
     },
 
     pushEnemy(pushedEnemy) {
