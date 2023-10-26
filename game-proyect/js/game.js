@@ -96,7 +96,7 @@ const Game = {
         // if (this.frameCounter % 100 === 0) {
         //     this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player,))
         // }
-
+        this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player))
 
         if (this.count < 2) this.enemys.push(new Enemy(this.gameScreen, this.gameSize, this.player))
         //manual
@@ -109,6 +109,12 @@ const Game = {
         this.gameScreen.style.width = `${this.gameSize.w}px`
         this.gameScreen.style.height = `${this.gameSize.h}px`
         // this.gameScreen.style.backgroundColor = 'wheat' //placeholder
+    },
+    moveAudio(){
+        let audio2 = document.getElementById("audio2")
+
+        audio2.play()
+        
     },
 
     setEventListeners() {
@@ -131,24 +137,28 @@ const Game = {
                         this.melee.printWeapon('up')
                         this.player.animateSprite(this.frameCounter, 4)
                         this.background.moveUP()
+                        this.moveAudio() 
                         break
                     case this.keys.DOWN:
                         this.enemys.forEach(elm => elm.moveDOWN())
                         this.melee.printWeapon('down')
                         this.player.animateSprite(this.frameCounter, 1)
                         this.background.moveDOWN()
+                        this.moveAudio()
                         break
                     case this.keys.LEFT:
                         this.enemys.forEach(elm => elm.moveLEFT())
                         this.melee.printWeapon('left')
                         this.player.animateSprite(this.frameCounter, 7)
                         this.background.moveLEFT()
+                        this.moveAudio()
                         break
                     case this.keys.RIGHT:
                         this.enemys.forEach(elm => elm.moveRIGHT())
                         this.melee.printWeapon('right')
                         this.player.animateSprite(this.frameCounter, 10)
                         this.background.moveRIGHT()
+                        this.moveAudio()
                         break
 
                     case this.keys.PAUSE:
@@ -159,8 +169,11 @@ const Game = {
             }
         })
 
-
-
+        document.addEventListener("keyup", e => {
+           
+             audio2.pause()
+        })
+    
 
     },
 
@@ -213,6 +226,10 @@ const Game = {
     killEnemy(deadEnemy) {
         deadEnemy.enemy.remove()
         this.enemys.splice(this.enemys.indexOf(deadEnemy), 1)
+        var audio = document.getElementById("audio");
+
+        audio.play()
+        
     },
 
     pushEnemy(pushedEnemy) {
@@ -296,5 +313,7 @@ const Game = {
         this.gameOver = new GameOver(this.gameScreen, this.gameSize)
     }
 
+
+   
 
 }
