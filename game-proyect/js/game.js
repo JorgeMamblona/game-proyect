@@ -11,7 +11,7 @@ const Game = {
     isPaused: false,
     deads: 0,
     count: 0,
-    spawn: 300,
+    spawn: 150,
 
     player: undefined,
     enemys: [],
@@ -106,14 +106,14 @@ const Game = {
         // this.count++
     },
     setSpawn() {
-        if (this.frameCounter % 800 === 0) {
+        if (this.frameCounter % 700 === 0) {
 
             if (this.spawn > 1) {
-                this.spawn -= 5
+                this.spawn -= 20
 
                 this.enemys.forEach(elm => {
-                    // elm.enemyStatistics.enemyVel.top += .2
-                    // elm.enemyStatistics.enemyVel.left += .2
+                    elm.enemyStatistics.enemyVel.top += .2
+                    elm.enemyStatistics.enemyVel.left += .2
                 })
             } else {
                 this.spawn = 1
